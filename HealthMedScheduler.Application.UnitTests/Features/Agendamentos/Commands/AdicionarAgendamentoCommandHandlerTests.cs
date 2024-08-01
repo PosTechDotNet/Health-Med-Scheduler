@@ -173,7 +173,7 @@ namespace HealthMedScheduler.Application.UnitTests.Features.Agendamentos.Command
         public async Task AdicionarAgendamento_HorarioMedicoIndisponivel_DeveExecutarComFalha()
         {
             //Arrange
-            var medico = new Medico(Guid.NewGuid(), "PR-1234567",null, "Dr. João", "64545337007", "86370000", "Rua 15 de março", "São Paulo", "43999999999");
+            var medico = new Medico(Guid.NewGuid(), "PR-1234567",null, "Dr. João", "64545337007", "86370000", "Rua 15 de março", "São Paulo", "43999999999", "jose@gmail.com");
             var especialidadeMedico = new EspecialidadeMedico(Guid.NewGuid(), medico.Id, DateTime.Parse("2023-06-05 09:00:00"));
             var agendaMedico = new AgendaMedico(medico.Id, DayOfWeek.Tuesday, TimeSpan.Parse("09:00"), TimeSpan.Parse("18:00"));
             var agendamento = new Agendamento(especialidadeMedico.Id, Guid.NewGuid(), DateTime.Parse("2029-06-05 09:00:00"));
