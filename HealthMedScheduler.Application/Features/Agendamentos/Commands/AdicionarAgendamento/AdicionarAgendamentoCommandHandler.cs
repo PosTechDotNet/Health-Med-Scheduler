@@ -20,8 +20,8 @@ namespace HealthMedScheduler.Application.Features.Agendamentos.Commands.Adiciona
         private readonly IMedicoRepository _medicoRepository;
         private readonly IEmailSender _emailSender;
         private readonly IAgendaMedicoRepository _agendaMedicoRepository;
-        
-        public AdicionarAgendamentoCommandHandler(IMapper mapper, IAgendamentoRepository agendamentoRepository, IEspecialidadeMedicoRepository especialidadeMedicoRepository, IPacienteRepository pacienteRepository, IEmailSender emailSender, IMedicoRepository medicoRepository)
+
+        public AdicionarAgendamentoCommandHandler(IMapper mapper, IAgendamentoRepository agendamentoRepository, IEspecialidadeMedicoRepository especialidadeMedicoRepository, IPacienteRepository pacienteRepository, IEmailSender emailSender, IMedicoRepository medicoRepository, IAgendaMedicoRepository agendaMedicoRepository)
         {
             _mapper = mapper;
             _agendamentoRepository = agendamentoRepository;
