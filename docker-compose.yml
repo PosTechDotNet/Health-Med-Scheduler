@@ -1,35 +1,21 @@
 version: "3.7"
 
 services:
-  sql-server-healthmed:
-    container_name: sql-server-healthmed
-    image: mcr.microsoft.com/mssql/server:2022-latest
-    restart: always
-    ports:
-      - "1436:1433"
-    environment:
-      MSSQL_SA_PASSWORD: "1q2w3e4r@#$"
-      ACCEPT_EULA: "Y"
-      MSSQL_PID: "Developer"
-    networks:
-      - health-med-net 
-
-  healthmed-api:
-    container_name: healthmed
-    image: rockie88/healthmed:v1
-    build:
+  api-alodoutor:
+    container_name: "api-alodoutor"
+    image: "fbiopereira/alo-doutor:latest"
+    build: 
       context: .
-      dockerfile: ./Dockerfile
-    restart: always
+      dockerfile: ./AloDoutor.API/Dockerfile
+    restart: "always"
     ports:
-      - "9091:80"
+      - "4040:4040"
     environment:
-      aspnetcore_environment: Staging
-    depends_on:
-      - sql-server-healthmed
+      aspnetcore_environment: "Release"
+      ConnectionString: "Server=localhost;Database=AloDoutor;User ID=sa;Password=P@ssw0rd;Trusted_Connection=False; TrustServerCertificate=True;MultipleActiveResultSets=True"
     networks:
-      - health-med-net 
+      - "alo-doutor-net"
 
 networks:
-  health-med-net:
+  alo-doutor-net:
     driver: bridge

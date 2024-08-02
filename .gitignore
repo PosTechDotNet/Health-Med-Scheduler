@@ -503,3 +503,4 @@ $RECYCLE.BIN/
 *.bkp
 **/obj
 **/bin
+/coveragereport

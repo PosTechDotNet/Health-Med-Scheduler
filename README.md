@@ -6,6 +6,7 @@
   - [Integrantes](#integrantes)
   - [Tecnologias Utilizadas](#tecnologias-utilizadas)
   - [Solução](#solução)
+  - [Projeto em um cluster no AKS](#projeto-em-um-cluster-no-aks)
   - [Como Executar o Projeto](#como-executar-o-projeto)
   - [Como Executar o Projeto no Kubernetes](#como-executar-o-projeto-no-kubernetes)
   - [Testes](#testes)
@@ -58,7 +59,11 @@ Na arquitetura de software utilizamos os conceitos da Clean Architecture e o pro
 
 ![Clean Architecture](./documentacao/imagens/Clean_HealthMed.png)
 
+[voltar](#índice)
 
+## Projeto em um cluster no AKS
+O projeto está rodando em cluster no AKS no seguinte endereço
+   - http://135.237.20.236:4040/swagger/index.html
 
 [voltar](#índice)
 
@@ -131,19 +136,19 @@ d- Acesse a url http://health-med.127.0.0.1.nip.io/swagger
 
 ## Testes
 
-Foram criados dois projetos para os testes automatizados:
+Foi criado um projeto para os testes automatizados:
 
 - HealthMedScheduler.Application.unitTests
     - São testadas as entidades de domínio e casos de uso utilizando mocks
 
-- HealthMedScheduler.Api.IntegrationTests
-    - Aqui testamos a API em si fazendo chamadas reais para a mesma e salvando as informações na base de dados
-
 A cobertura alcançada está demonstrada pelas imagens abaixo:
 
-![Cobertura de Testes 1](./documentacao/imagens/cobertura_testes_1.png)
+![Cobertura de Testes 1](./documentacao/imagens/code_coverage.png)
 
-![Cobertura de Testes 2](./documentacao/imagens/cobertura_testes_2.png)
+![Cobertura de Testes 2](./documentacao/imagens/code_coverage2.png)
+
+![Cobertura de Testes 2](./documentacao/imagens/code_coverage3.png)
+
 
 
 ## Levantamento de Requisitos
