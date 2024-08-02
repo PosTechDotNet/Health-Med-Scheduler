@@ -1,5 +1,5 @@
-﻿using Health.Core.Controllers;
-using HealthMedScheduler.Application.Features.Auth.Commands;
+﻿using HealthMedScheduler.Application.Features.Auth.Commands;
+using HealthMedScheduler.Identity.Controllers;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -27,9 +27,9 @@ namespace HealthMedScheduler.Api.Controllers
         {
             _logger.LogInformation("Endpoint para login de usuario");
 
-              return CustomResponse(await _mediator.Send(usuarioLogin));
+            return CustomResponse(await _mediator.Send(usuarioLogin));
         }
-     
+
     }
 }
 

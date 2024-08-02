@@ -1,4 +1,4 @@
-﻿using Health.Core.Controllers;
+﻿using HealthMedScheduler.Identity.Controllers;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HealthMedScheduler.Api.Controllers

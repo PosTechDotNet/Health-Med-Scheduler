@@ -13,10 +13,10 @@
     <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="7.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="7.0.12" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="7.0.12" />
+    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.35.0" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Health.Core\Health.Core.csproj" />
     <ProjectReference Include="..\HealthMedScheduler.Domain\HealthMedScheduler.Domain.csproj" />
   </ItemGroup>
 

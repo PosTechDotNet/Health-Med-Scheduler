@@ -1,11 +1,8 @@
-﻿using HealthMedScheduler.Application.Features.Agendamentos.Commands.AtualizarAgendamento;
+﻿using AutoMapper;
 using HealthMedScheduler.Application.Features.Agendamentos.Commands.RemoverAgendamento;
-using HealthMedScheduler.Application.Features.Medicos.Commands.RemoverMedico;
 using HealthMedScheduler.Application.UnitTests.Mocks;
 using HealthMedScheduler.Domain.Entity;
 using HealthMedScheduler.Domain.Interfaces;
-using AutoMapper;
-using FluentValidation;
 using Moq;
 using Moq.AutoMock;
 
@@ -39,7 +36,7 @@ namespace HealthMedScheduler.Application.UnitTests.Features.Agendamentos.Command
 
             var agendamentoCommand = new RemoverAgendamentoCommand
             {
-                IdAgendamento = agendamento.Id,               
+                IdAgendamento = agendamento.Id,
             };
             var validator = new RemoverAgendamentoCommandValidator();
 
@@ -47,7 +44,7 @@ namespace HealthMedScheduler.Application.UnitTests.Features.Agendamentos.Command
             _mocker.GetMock<IAgendamentoRepository>().Setup(r => r.Adicionar(It.IsAny<Agendamento>())).Returns(Task.CompletedTask);
             _mocker.GetMock<IAgendamentoRepository>().Setup(r => r.UnitOfWork.Commit()).ReturnsAsync(true);
             _mocker.GetMock<IAgendamentoRepository>().Setup(r => r.ObterPorId(agendamento.Id)).ReturnsAsync(agendamento);
-           
+
             //Act
             var validationResult = await validator.ValidateAsync(agendamentoCommand);
             var result = await _agendamentoHandler.Handle(agendamentoCommand, CancellationToken.None);

@@ -12,6 +12,7 @@ COPY ["HealthMedScheduler.API/HealthMedScheduler.Api.csproj", "HealthMedSchedule
 COPY ["HealthMedScheduler.Application/HealthMedScheduler.Application.csproj", "HealthMedScheduler.Application/"]
 COPY ["HealthMedScheduler.Domain/HealthMedScheduler.Domain.csproj", "HealthMedScheduler.Domain/"]
 COPY ["HealthMedScheduler.Infrastructure/HealthMedScheduler.Infrastructure.csproj", "HealthMedScheduler.Infrastructure/"]
+COPY ["HealthMedScheduler.Identity/HealthMedScheduler.Identity.csproj", "HealthMedScheduler.Identity/"]
 RUN dotnet restore "HealthMedScheduler.API/HealthMedScheduler.Api.csproj"
 
 COPY . . 
@@ -25,6 +26,6 @@ RUN dotnet publish "./HealthMedScheduler.Api.csproj" -c $BUILD_CONFIGURATION -o 
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-EXPOSE 4040
-ENV ASPNETCORE_URLS=http://*:4040
+# EXPOSE 4040
+# ENV ASPNETCORE_URLS=http://*:4040
 ENTRYPOINT ["dotnet", "HealthMedScheduler.Api.dll"]

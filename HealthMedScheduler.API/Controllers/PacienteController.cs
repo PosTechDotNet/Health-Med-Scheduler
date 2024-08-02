@@ -1,8 +1,8 @@
-﻿using Health.Core.Controllers;
-using HealthMedScheduler.Application.Features.Pacientes.Commands.AdicionarPaciente;
+﻿using HealthMedScheduler.Application.Features.Pacientes.Commands.AdicionarPaciente;
 using HealthMedScheduler.Application.Features.Pacientes.Commands.AtualizarPaciente;
 using HealthMedScheduler.Application.Features.Pacientes.Commands.RemoverPaciente;
 using HealthMedScheduler.Application.Features.Pacientes.Queries;
+using HealthMedScheduler.Identity.Controllers;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -46,7 +46,7 @@ namespace HealthMedScheduler.Api.Controllers
             var medicos = await _mediator.Send(new ObterPacientePorIdQuery(id));
             return CustomResponse(medicos);
         }
-        
+
         /// <summary>
         /// Obtém os agendamentos de um paciente por ID do paciente.
         /// </summary>
@@ -74,7 +74,7 @@ namespace HealthMedScheduler.Api.Controllers
             //return validation.IsValid ? Created("", medicoDTO) : CustomResponse(validation);
             return CreatedAtAction(nameof(ObterTodos), new { id = response });
         }
-        
+
         /// <summary>
         /// Atualiza um paciente existente.
         /// </summary>

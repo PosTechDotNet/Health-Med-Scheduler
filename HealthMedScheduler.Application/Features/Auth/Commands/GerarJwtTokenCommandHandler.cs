@@ -1,7 +1,4 @@
-﻿using FluentValidation;
-using Health.Core.Identidade;
-using HealthMedScheduler.Application.Exceptions;
-using HealthMedScheduler.Application.Features.Agendamentos.Commands.AdicionarAgendamento;
+﻿using HealthMedScheduler.Application.Exceptions;
 using HealthMedScheduler.Application.ViewModel.Auth;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
@@ -47,7 +44,7 @@ namespace HealthMedScheduler.Application.Features.Auth.Commands
 
             if (result.IsLockedOut)
             {
-                throw new BadRequestException("Usuário temporariamente bloqueado por tentativas inválidas", validationResult);                
+                throw new BadRequestException("Usuário temporariamente bloqueado por tentativas inválidas", validationResult);
             }
 
             throw new BadRequestException("Usuário ou Senha incorretos", validationResult);

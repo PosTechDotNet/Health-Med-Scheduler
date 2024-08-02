@@ -53,18 +53,6 @@ namespace HealthMedScheduler.Application.UnitTests.Features.Medicos.Commands
             _mocker.GetMock<IMedicoRepository>().Verify(r => r.Atualizar(It.IsAny<Medico>()), Times.Once);
             _mocker.GetMock<IMedicoRepository>().Verify(r => r.UnitOfWork.Commit(), Times.Once);
 
-        }       
-
-        /* [Fact]
-         public async Task AtualizarMedico_DeveRetornarListaDeMedicos()
-         {
-
-             var handler = new AtualizarMedicoCommandHandler(_mapper, _mockMedicoRepo.Object);
-
-             await handler.Handle(new AtualizarMedicoCommand() { Id = Guid.Parse("11111111-1111-1111-1111-111111111111"), Cpf = "82841218082", Nome = "Medico 1", Cep = "11111111111", Telefone = "2222-2222", Endereco = "Rua Fake 9999", Estado = "Fake", Crm = "AA-12345" }, CancellationToken.None);
-
-             var medicos = await _mockMedicoRepo.Object.ObterTodos();
-             medicos.Count.ShouldBe(3);
-         }*/
+        }
     }
 }

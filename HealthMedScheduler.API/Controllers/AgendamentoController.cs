@@ -1,8 +1,8 @@
-﻿using Health.Core.Controllers;
-using HealthMedScheduler.Application.Features.Agendamentos.Commands.AdicionarAgendamento;
+﻿using HealthMedScheduler.Application.Features.Agendamentos.Commands.AdicionarAgendamento;
 using HealthMedScheduler.Application.Features.Agendamentos.Commands.AtualizarAgendamento;
 using HealthMedScheduler.Application.Features.Agendamentos.Commands.RemoverAgendamento;
 using HealthMedScheduler.Application.Features.Agendamentos.Queries;
+using HealthMedScheduler.Identity.Controllers;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;

@@ -1,6 +1,7 @@
 using HealthMedScheduler.Api;
 using HealthMedScheduler.Application;
 using HealthMedScheduler.Infrastructure;
+using HealthMedScheduler.Identity;
 
 var builder = WebApplication.CreateBuilder(args);
 

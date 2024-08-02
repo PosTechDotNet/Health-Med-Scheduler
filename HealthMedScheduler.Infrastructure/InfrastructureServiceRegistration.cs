@@ -1,9 +1,9 @@
-﻿using Health.Core.Usuario;
-using HealthMedScheduler.Application.Features.Auth.Commands;
+﻿using HealthMedScheduler.Application.Features.Auth.Commands;
 using HealthMedScheduler.Application.Interfaces.Email;
 using HealthMedScheduler.Application.Models;
 using HealthMedScheduler.Application.ViewModel.Auth;
 using HealthMedScheduler.Domain.Interfaces;
+using HealthMedScheduler.Identity.Usuario;
 using HealthMedScheduler.Infrastructure.Data.Context;
 using HealthMedScheduler.Infrastructure.Data.Repository;
 using HealthMedScheduler.Infrastructure.EmailService;
@@ -32,16 +32,9 @@ namespace HealthMedScheduler.Infrastructure
             services.AddScoped<IAgendamentoRepository, AgendamentoRepository>();
 
 
-            services.AddScoped<IRequestHandler<GerarJwtTokenCommand, UsuarioRespostaLoginViewModel>, GerarJwtTokenCommandHandler>();
-
-            ////Autenticação
-            //services.AddScoped<IAspNetUser, AspNetUser>();
-            //services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-
-            //Commands
+            services.AddScoped<IRequestHandler<GerarJwtTokenCommand, UsuarioRespostaLoginViewModel>, GerarJwtTokenCommandHandler>();           
 
             //Services
-
             services.Configure<EmailSettings>(o => configuration.GetSection("EmailSettings").Bind(o));
             services.AddScoped<IEmailSender, EmailSender>();
 

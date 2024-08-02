@@ -1,9 +1,9 @@
-﻿using Health.Core.Controllers;
-using HealthMedScheduler.Application.Features.Medicos.Commands.AdicionarAgenda;
+﻿using HealthMedScheduler.Application.Features.Medicos.Commands.AdicionarAgenda;
 using HealthMedScheduler.Application.Features.Medicos.Commands.AdicionarMedico;
 using HealthMedScheduler.Application.Features.Medicos.Commands.AtualizarMedico;
 using HealthMedScheduler.Application.Features.Medicos.Commands.RemoverMedico;
 using HealthMedScheduler.Application.Features.Medicos.Queries.ObterTodosMedicos;
+using HealthMedScheduler.Identity.Controllers;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;

@@ -1,10 +1,9 @@
-﻿using HealthMedScheduler.Application.Features.Agendamentos.Queries;
-using HealthMedScheduler.Application.Features.EspecialidadesMedicos.Queries;
+﻿using AutoMapper;
+using HealthMedScheduler.Application.Features.Agendamentos.Queries;
 using HealthMedScheduler.Application.MappingProfiles;
 using HealthMedScheduler.Application.ViewModel;
 using HealthMedScheduler.Domain.Entity;
 using HealthMedScheduler.Domain.Interfaces;
-using AutoMapper;
 using Moq;
 using Moq.AutoMock;
 

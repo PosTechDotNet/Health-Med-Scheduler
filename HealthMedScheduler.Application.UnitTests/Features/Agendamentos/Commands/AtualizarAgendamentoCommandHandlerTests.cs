@@ -1,12 +1,11 @@
-﻿using HealthMedScheduler.Application.Features.Agendamentos.Commands.AdicionarAgendamento;
-using HealthMedScheduler.Application.UnitTests.Mocks;
-using HealthMedScheduler.Domain.Interfaces;
-using AutoMapper;
-using Moq.AutoMock;
-using Moq;
-using HealthMedScheduler.Application.MappingProfiles;
-using HealthMedScheduler.Domain.Entity;
+﻿using AutoMapper;
 using HealthMedScheduler.Application.Features.Agendamentos.Commands.AtualizarAgendamento;
+using HealthMedScheduler.Application.MappingProfiles;
+using HealthMedScheduler.Application.UnitTests.Mocks;
+using HealthMedScheduler.Domain.Entity;
+using HealthMedScheduler.Domain.Interfaces;
+using Moq;
+using Moq.AutoMock;
 
 namespace HealthMedScheduler.Application.UnitTests.Features.Agendamentos.Commands
 {

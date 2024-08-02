@@ -1,4 +1,5 @@
 ﻿using HealthMedScheduler.Api.Middlewares;
+using HealthMedScheduler.Identity.Data.Context;
 using HealthMedScheduler.Infrastructure.Data.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
@@ -14,7 +15,7 @@ namespace HealthMedScheduler.Api
         public static IServiceCollection AddApiConfig(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddDbContext<MeuDbContext>(options =>
-               options.UseSqlServer(Environment.GetEnvironmentVariable("ConnectionString")));
+               options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
 
             services.AddControllers();
 
@@ -43,17 +44,8 @@ namespace HealthMedScheduler.Api
                 {
                     var dbContext = scope.ServiceProvider.GetRequiredService<MeuDbContext>();
                      dbContext.Database.Migrate();
-                }
-            }
-
-            if (env.IsStaging())
-            {
-                app.UseDeveloperExceptionPage();
-
-                using (var scope = app.ApplicationServices.CreateScope())
-                {
-                    var dbContext = scope.ServiceProvider.GetRequiredService<MeuDbContext>();
-                    dbContext.Database.Migrate();
+                    var dbApplicationContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+                    dbApplicationContext.Database.Migrate();
                 }
             }
 

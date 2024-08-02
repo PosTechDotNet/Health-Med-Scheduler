@@ -32,7 +32,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HealthMedScheduler.Applicat
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Building Blocks", "Building Blocks", "{76BBE015-E9F2-4475-82BA-3D2B8829BA59}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Health.Core", "Health.Core\Health.Core.csproj", "{127A0A35-8991-4526-83C0-E329C32E45DD}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HealthMedScheduler.Identity", "HealthMedScheduler.Identity\HealthMedScheduler.Identity.csproj", "{9378F3A4-9C6A-4CE5-BCA8-6D540B2A22CD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -64,6 +64,10 @@ Global
 		{127A0A35-8991-4526-83C0-E329C32E45DD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{127A0A35-8991-4526-83C0-E329C32E45DD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{127A0A35-8991-4526-83C0-E329C32E45DD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9378F3A4-9C6A-4CE5-BCA8-6D540B2A22CD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9378F3A4-9C6A-4CE5-BCA8-6D540B2A22CD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9378F3A4-9C6A-4CE5-BCA8-6D540B2A22CD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9378F3A4-9C6A-4CE5-BCA8-6D540B2A22CD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -78,6 +82,7 @@ Global
 		{4E44B9EE-1447-4312-A227-E2A85C335A69} = {93DB23CA-A620-492B-87A3-786CF58BCC6C}
 		{81A12DBD-4AAF-4C71-A186-A51C0918286B} = {71D56915-BF5B-4A24-9EC9-B2FF5DB6FB48}
 		{127A0A35-8991-4526-83C0-E329C32E45DD} = {76BBE015-E9F2-4475-82BA-3D2B8829BA59}
+		{9378F3A4-9C6A-4CE5-BCA8-6D540B2A22CD} = {47CA0868-B842-46E0-82CE-D597B2D4249C}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {877E6D01-399B-4D04-98A6-F21235CA469F}

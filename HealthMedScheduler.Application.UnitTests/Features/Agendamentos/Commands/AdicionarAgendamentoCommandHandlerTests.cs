@@ -1,13 +1,12 @@
-﻿using HealthMedScheduler.Application.Exceptions;
+﻿using AutoMapper;
+using HealthMedScheduler.Application.Exceptions;
 using HealthMedScheduler.Application.Features.Agendamentos.Commands.AdicionarAgendamento;
 using HealthMedScheduler.Application.MappingProfiles;
 using HealthMedScheduler.Application.UnitTests.Mocks;
 using HealthMedScheduler.Domain.Entity;
 using HealthMedScheduler.Domain.Interfaces;
-using AutoMapper;
 using Moq;
 using Moq.AutoMock;
-using HealthMedScheduler.Application.Features.Especialidades.Commands.AdicionarEspecialidade;
 
 namespace HealthMedScheduler.Application.UnitTests.Features.Agendamentos.Commands
 {
@@ -85,7 +84,7 @@ namespace HealthMedScheduler.Application.UnitTests.Features.Agendamentos.Command
             _mocker.GetMock<IPacienteRepository>().Setup(r => r.ObterPorId(paciente.Id)).ReturnsAsync(paciente);
             _mocker.GetMock<IPacienteRepository>().Setup(r => r.VerificarPacienteCadastrado(paciente.Id)).ReturnsAsync(true);
             _mocker.GetMock<IPacienteRepository>().Setup(r => r.VerificarAgendaLivrePaciente(paciente.Id, agendamentoCommand.DataHoraAtendimento)).ReturnsAsync(true);
-            
+
 
 
             var validator = new AdicionarAgendamentoCommandValidator();
@@ -106,7 +105,8 @@ namespace HealthMedScheduler.Application.UnitTests.Features.Agendamentos.Command
         public async Task AdicionarAgendamento_NovoAgendamento_DeveExecutarComFalha()
         {
             //Arrange
-            var agendamentoCommand = new AdicionarAgendamentoCommand { 
+            var agendamentoCommand = new AdicionarAgendamentoCommand
+            {
                 DataHoraAtendimento = DateTime.Today,
                 EspecialidadeMedicoId = Guid.Empty,
                 PacienteId = Guid.Empty
@@ -153,7 +153,7 @@ namespace HealthMedScheduler.Application.UnitTests.Features.Agendamentos.Command
             //Arrange
             var agendamentoCommand = new AdicionarAgendamentoCommand
             {
-                DataHoraAtendimento = DateTime.Parse("2024-05-03 09:00:00"), 
+                DataHoraAtendimento = DateTime.Parse("2024-05-03 09:00:00"),
                 EspecialidadeMedicoId = Guid.NewGuid(),
                 PacienteId = Guid.NewGuid(),
             };
@@ -197,11 +197,11 @@ namespace HealthMedScheduler.Application.UnitTests.Features.Agendamentos.Command
         public async Task AdicionarAgendamento_HorarioMedicoIndisponivel_DeveExecutarComFalha()
         {
             //Arrange
-            var medico = new Medico(Guid.NewGuid(), "PR-1234567",null, "Dr. João", "64545337007", "86370000", "Rua 15 de março", "São Paulo", "43999999999", "jose@gmail.com");
+            var medico = new Medico(Guid.NewGuid(), "PR-1234567", null, "Dr. João", "64545337007", "86370000", "Rua 15 de março", "São Paulo", "43999999999", "jose@gmail.com");
             var especialidadeMedico = new EspecialidadeMedico(Guid.NewGuid(), medico.Id, DateTime.Parse("2023-06-05 09:00:00"));
             var agendaMedico = new AgendaMedico(medico.Id, DayOfWeek.Tuesday, TimeSpan.Parse("09:00"), TimeSpan.Parse("18:00"));
             var agendamento = new Agendamento(especialidadeMedico.Id, Guid.NewGuid(), DateTime.Parse("2029-06-05 09:00:00"));
-            
+
             var agendamentoCommand = new AdicionarAgendamentoCommand
             {
                 DataHoraAtendimento = DateTime.Parse("2029-06-05 09:00:00"),
@@ -222,7 +222,7 @@ namespace HealthMedScheduler.Application.UnitTests.Features.Agendamentos.Command
             //Agenda Medico
             _mocker.GetMock<IAgendaMedicoRepository>().Setup(r => r.Adicionar(It.IsAny<AgendaMedico>())).Returns(Task.CompletedTask);
             _mocker.GetMock<IAgendaMedicoRepository>().Setup(r => r.UnitOfWork.Commit()).ReturnsAsync(true);
-            _mocker.GetMock<IAgendaMedicoRepository>().Setup(r => r.ObterAgendaMedicoPorDia(agendaMedico.MedicoId, (int) agendaMedico.DiaSemana)).ReturnsAsync(agendaMedico);
+            _mocker.GetMock<IAgendaMedicoRepository>().Setup(r => r.ObterAgendaMedicoPorDia(agendaMedico.MedicoId, (int)agendaMedico.DiaSemana)).ReturnsAsync(agendaMedico);
 
             //EspecilidadeMedico
             _mocker.GetMock<IEspecialidadeMedicoRepository>().Setup(r => r.Adicionar(It.IsAny<EspecialidadeMedico>())).Returns(Task.CompletedTask);
@@ -255,7 +255,7 @@ namespace HealthMedScheduler.Application.UnitTests.Features.Agendamentos.Command
                 DataHoraAtendimento = DateTime.Parse("2029-06-05 09:00:00"),
                 EspecialidadeMedicoId = especialidadeMedico.Id,
                 PacienteId = Guid.NewGuid(),
-            };          
+            };
 
             //EspecilidadeMedico
             _mocker.GetMock<IEspecialidadeMedicoRepository>().Setup(r => r.Adicionar(It.IsAny<EspecialidadeMedico>())).Returns(Task.CompletedTask);
@@ -266,7 +266,7 @@ namespace HealthMedScheduler.Application.UnitTests.Features.Agendamentos.Command
             //EspecilidadeMedico
             _mocker.GetMock<IPacienteRepository>().Setup(r => r.Adicionar(It.IsAny<Paciente>())).Returns(Task.CompletedTask);
             _mocker.GetMock<IPacienteRepository>().Setup(r => r.UnitOfWork.Commit()).ReturnsAsync(true);
-            _mocker.GetMock<IPacienteRepository>().Setup(r => r.VerificarPacienteCadastrado(paciente.Id)).ReturnsAsync(true);           
+            _mocker.GetMock<IPacienteRepository>().Setup(r => r.VerificarPacienteCadastrado(paciente.Id)).ReturnsAsync(true);
 
             var validator = new AdicionarAgendamentoCommandValidator();
 
@@ -361,7 +361,7 @@ namespace HealthMedScheduler.Application.UnitTests.Features.Agendamentos.Command
             _mocker.GetMock<IEspecialidadeMedicoRepository>().Setup(r => r.VerificarAgendaLivreMedico(especialidadeMedico.MedicoId, agendamentoCommand.DataHoraAtendimento)).ReturnsAsync(true);
             _mocker.GetMock<IEspecialidadeMedicoRepository>().Setup(r => r.ObterPorId(especialidadeMedico2.Id)).ReturnsAsync(especialidadeMedico2);
             _mocker.GetMock<IEspecialidadeMedicoRepository>().Setup(r => r.VerificarAgendaLivreMedico(especialidadeMedico2.MedicoId, agendamentoCommand.DataHoraAtendimento)).ReturnsAsync(true);
-           
+
             //Paciente
             _mocker.GetMock<IPacienteRepository>().Setup(r => r.Adicionar(It.IsAny<Paciente>())).Returns(Task.CompletedTask);
             _mocker.GetMock<IPacienteRepository>().Setup(r => r.UnitOfWork.Commit()).ReturnsAsync(true);

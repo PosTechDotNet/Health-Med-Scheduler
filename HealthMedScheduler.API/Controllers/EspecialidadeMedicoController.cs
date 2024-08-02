@@ -1,9 +1,9 @@
-﻿using Health.Core.Controllers;
-using HealthMedScheduler.Application.Features.EspecialidadesMedicos.Commands.AdicionarEspecialidadeMedico;
+﻿using HealthMedScheduler.Application.Features.EspecialidadesMedicos.Commands.AdicionarEspecialidadeMedico;
 using HealthMedScheduler.Application.Features.EspecialidadesMedicos.Commands.AtualizarEspecialidadeMedico;
 using HealthMedScheduler.Application.Features.EspecialidadesMedicos.Commands.RemoverEspecialidadeMedico;
 using HealthMedScheduler.Application.Features.EspecialidadesMedicos.Queries;
 using HealthMedScheduler.Domain.Entity;
+using HealthMedScheduler.Identity.Controllers;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;

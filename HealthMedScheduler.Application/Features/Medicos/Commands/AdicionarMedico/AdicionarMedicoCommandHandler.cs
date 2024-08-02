@@ -55,7 +55,7 @@ namespace HealthMedScheduler.Application.Features.Medicos.Commands.AdicionarMedi
             return medicoCriado.Id;
         }
 
-        private async Task<bool> CriarAcessoMedico(AdicionarMedicoCommand request)
+        public async Task<bool> CriarAcessoMedico(AdicionarMedicoCommand request)
         {
             var user = new IdentityUser
             {

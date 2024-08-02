@@ -17,8 +17,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Health.Core\Health.Core.csproj" />
     <ProjectReference Include="..\HealthMedScheduler.Application\HealthMedScheduler.Application.csproj" />
+    <ProjectReference Include="..\HealthMedScheduler.Identity\HealthMedScheduler.Identity.csproj" />
   </ItemGroup>
 
 </Project>

@@ -1,11 +1,11 @@
-﻿using HealthMedScheduler.Application.Exceptions;
+﻿using AutoMapper;
+using HealthMedScheduler.Application.Exceptions;
 using HealthMedScheduler.Application.Features.Medicos.Commands.AdicionarMedico;
-using HealthMedScheduler.Application.Features.Medicos.Commands.AtualizarMedico;
 using HealthMedScheduler.Application.MappingProfiles;
 using HealthMedScheduler.Application.UnitTests.Mocks;
 using HealthMedScheduler.Domain.Entity;
 using HealthMedScheduler.Domain.Interfaces;
-using AutoMapper;
+using Microsoft.AspNetCore.Identity;
 using Moq;
 using Moq.AutoMock;
 
@@ -15,10 +15,11 @@ namespace HealthMedScheduler.Application.UnitTests.Features.Medicos.Commands
     public class AdicionarMedicoCommandHandlerTests
     {
         private readonly IMapper _mapper;
-        private readonly Mock<IAgendaMedicoRepository> _mockMedicoRepo;
         private readonly AdicionarMedicoCommandHandler _medicoHandler;
         private readonly MedicoTestsAutoMockerFixture _medicofixture;
+        private readonly Mock<UserManager<IdentityUser>> _userManagerMock;
         private readonly AutoMocker _mocker;
+        private readonly Mock<IMedicoRepository> _medicoRepositoryMock;
 
         public AdicionarMedicoCommandHandlerTests(MedicoTestsAutoMockerFixture medicofixture)
         {
@@ -30,52 +31,60 @@ namespace HealthMedScheduler.Application.UnitTests.Features.Medicos.Commands
             _mocker = new AutoMocker();
             _mapper = mapperConfig.CreateMapper();
             _mocker.Use(mapperConfig.CreateMapper());
-            _medicoHandler = _mocker.CreateInstance<AdicionarMedicoCommandHandler>();
             _medicofixture = medicofixture;
+            _medicoRepositoryMock = new Mock<IMedicoRepository>();
+            _userManagerMock = new Mock<UserManager<IdentityUser>>(Mock.Of<IUserStore<IdentityUser>>(), null, null, null, null, null, null, null, null);
+            _medicoHandler = new AdicionarMedicoCommandHandler(_mapper, _medicoRepositoryMock.Object, _userManagerMock.Object);
+
         }
 
-        //[Fact(DisplayName = "Adicionar medico Novo Medico com Sucesso")]
-        //[Trait("Categoria", "Medico - Medico Command Handler")]
-        //public async Task AdicionarMedico_NovoMedico_DeveExecutarComSucesso()
-        //{
-        //    //Arrange
-        //    var medicoCommand = _medicofixture.GerarMedicoCommandValido();
-        //    var validator = new AdicionarMedicoCommandValidator();
-        //    _mocker.GetMock<IMedicoRepository>().Setup(x => x.UnitOfWork.Commit()).Returns(Task.FromResult(true));
-           
-        //    //Act
-        //    var result = await _medicoHandler.Handle(medicoCommand, CancellationToken.None);
-        //    var validationResult = await validator.ValidateAsync(medicoCommand);
+        [Fact(DisplayName = "Adicionar médico novo com Sucesso")]
+        [Trait("Categoria", "Medico - Medico Command Handler")]
+        public async Task AdicionarMedico_NovoMedico_DeveExecutarComSucesso()
+        {
+            //Arrange
+            var medicoCommand = _medicofixture.GerarMedicoCommandValido();
+            var validator = new AdicionarMedicoCommandValidator();
+            _userManagerMock.Setup(u => u.CreateAsync(It.IsAny<IdentityUser>(), medicoCommand.Password)).ReturnsAsync(IdentityResult.Success);
+            _medicoRepositoryMock.Setup(r => r.ObterMedicoPorCPF(medicoCommand.Cpf)).ReturnsAsync((Medico)null);
+            _medicoRepositoryMock.Setup(r => r.ObterMedicoPorCRM(medicoCommand.Crm)).ReturnsAsync((Medico)null);
+            _medicoRepositoryMock.Setup(r => r.UnitOfWork.Commit()).ReturnsAsync(true);
 
-        //    //Assert
-        //    Assert.True(validationResult.IsValid);
-        //    _mocker.GetMock<IMedicoRepository>().Verify(r => r.Adicionar(It.IsAny<Medico>()), Times.Once);
-        //    _mocker.GetMock<IMedicoRepository>().Verify(r => r.UnitOfWork.Commit(), Times.Once);
-        //}
 
-        [Fact(DisplayName = "Adicionar novo medico com Fallha")]
+            //Act
+            var result = await _medicoHandler.Handle(medicoCommand, CancellationToken.None);
+
+            var validationResult = await validator.ValidateAsync(medicoCommand);
+
+            //Assert
+            Assert.True(validationResult.IsValid);
+            _medicoRepositoryMock.Verify(r => r.UnitOfWork.Commit(), Times.Once);
+            _medicoRepositoryMock.Verify(r => r.Adicionar(It.IsAny<Medico>()), Times.Once);
+
+        }
+
+        [Fact(DisplayName = "Adicionar médico novo com cpf existente deve retornar Falha")]
         [Trait("Categoria", "Medico - Medico Command Handler")]
         public async Task AdicionarMedico_CPFMedicoExistente_DeveExecutarComFalha()
         {
             // Arrange
             var medicoOriginal = _medicofixture.GerarMedicoValido();
             var medicoNovo = _medicofixture.GerarMedicoCommandValido();
-            _mocker.GetMock<IMedicoRepository>().Setup(r => r.Adicionar(It.IsAny<Medico>())).Returns(Task.CompletedTask);
-            _mocker.GetMock<IMedicoRepository>().Setup(r => r.UnitOfWork.Commit()).ReturnsAsync(true);
-            _mocker.GetMock<IMedicoRepository>().Setup(r => r.ObterMedicoPorCPF(medicoOriginal.Cpf)).ReturnsAsync(medicoOriginal);
+            _medicoRepositoryMock.Setup(r => r.Adicionar(It.IsAny<Medico>())).Returns(Task.CompletedTask);
+            _medicoRepositoryMock.Setup(r => r.UnitOfWork.Commit()).ReturnsAsync(true);
+            _medicoRepositoryMock.Setup(r => r.ObterMedicoPorCPF(medicoOriginal.Cpf)).ReturnsAsync(medicoOriginal);
 
             //Act
             medicoNovo.Cpf = medicoOriginal.Cpf;
-            //var result = await _medicoHandler.Handle(medicoNovo, CancellationToken.None);
 
             //Assert
             await Assert.ThrowsAsync<BadRequestException>(() => _medicoHandler.Handle(medicoNovo, CancellationToken.None));
-            _mocker.GetMock<IMedicoRepository>().Verify(r => r.Adicionar(It.IsAny<Medico>()), Times.Never);
-            _mocker.GetMock<IMedicoRepository>().Verify(r => r.UnitOfWork.Commit(), Times.Never);
+            _medicoRepositoryMock.Verify(r => r.Adicionar(It.IsAny<Medico>()), Times.Never);
+            _medicoRepositoryMock.Verify(r => r.UnitOfWork.Commit(), Times.Never);
 
         }
 
-        [Fact(DisplayName = "Adicionar medico Novo Medico com Falha")]
+        [Fact(DisplayName = "Adicionar médico novo com Falha")]
         [Trait("Categoria", "Medico - Medico Command Handler")]
         public async Task AdicionarMedico_NovoMedico_DeveExecutarComFalha()
         {
@@ -87,18 +96,7 @@ namespace HealthMedScheduler.Application.UnitTests.Features.Medicos.Commands
             var validationResult = await validator.ValidateAsync(medicoCommand);
 
             //Acert
-            Assert.False(validationResult.IsValid);            
+            Assert.False(validationResult.IsValid);
         }
-
-        /* [Fact]
-         public async Task AdicionarMedico_DeveRetornarListaDeMedicos()
-         {
-             var handler = new AdicionarMedicoCommandHandler(_mapper, _mockMedicoRepo.Object);
-
-             await handler.Handle(new AdicionarMedicoCommand() { Cpf = "82841218082", Nome = "Medico 1", Cep = "11111111111", Telefone = "2222-2222", Endereco = "Rua Fake", Estado = "Fake", Crm = "AA-12345" }, CancellationToken.None);
-
-             var medicos = await _mockMedicoRepo.Object.ObterTodos();
-             medicos.Count.ShouldBe(4);
-         }*/
     }
 }
