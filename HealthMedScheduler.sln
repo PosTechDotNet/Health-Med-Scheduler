@@ -24,7 +24,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HealthMedScheduler.Infrastr
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HealthMedScheduler.Domain", "HealthMedScheduler.Domain\HealthMedScheduler.Domain.csproj", "{7B3CF59D-EF59-4E44-96AA-7FF20210AA78}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HealthMedScheduler.Api", "HealthMedScheduler.Api\HealthMedScheduler.Api.csproj", "{F4EFB54C-E1B3-447D-842F-5F3346B247E6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HealthMedScheduler.Api", "HealthMedScheduler.API\HealthMedScheduler.Api.csproj", "{F4EFB54C-E1B3-447D-842F-5F3346B247E6}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HealthMedScheduler.Application", "HealthMedScheduler.Application\HealthMedScheduler.Application.csproj", "{4E44B9EE-1447-4312-A227-E2A85C335A69}"
 EndProject
