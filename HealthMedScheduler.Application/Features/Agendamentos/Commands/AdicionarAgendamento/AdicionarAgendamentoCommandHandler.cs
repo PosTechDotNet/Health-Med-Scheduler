@@ -48,7 +48,10 @@ namespace HealthMedScheduler.Application.Features.Agendamentos.Commands.Adiciona
 
             await _agendamentoRepository.UnitOfWork.Commit();
 
-            var medico = await _medicoRepository.ObterPorId(agendamento.EspecialidadeMedico.MedicoId);
+            var especialidadeMedico = await _especialidadeMedicoRepository.ObterPorId(request.EspecialidadeMedicoId);
+
+            var medico = await _medicoRepository.ObterPorId(especialidadeMedico.MedicoId);
+
             var paciente = await _pacienteRepository.ObterPorId(agendamento.PacienteId);
             try
             {
