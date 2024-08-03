@@ -69,67 +69,80 @@ O projeto está rodando em cluster no AKS no seguinte endereço
 
 ## Como Executar o Projeto
 
-1- Preparando a base de dados
+1. Preparando a base de dados (local)
+    - Instale o SQL Server 2022 Developer na sua máquina
+        - https://www.microsoft.com/pt-br/sql-server/sql-server-downloads  
+  
+2. Instale o SQL Server Management Studio
+    - https://learn.microsoft.com/en-us/sql/ssms/download-sql-server-management-studio-ssms?view=sql-server-ver16#download-ssms 
+  
+3. Crie uma base de dados com o nome HealthMedScheduler
 
-a - Instale o SQL Server 2022 Developer na sua máquina
-        - https://www.microsoft.com/pt-br/sql-server/sql-server-downloads        
-b - Instale o SQL Server Management Studio
-        - https://learn.microsoft.com/en-us/sql/ssms/download-sql-server-management-studio-ssms?view=sql-server-ver16#download-ssms     
-c - Crie uma base de dados com o nome HealthMedScheduler
-d - Crie um usuário com o login 'fiap' e senha 'Fi@p_2@24' e coloque o HealthMedScheduler como banco default e de as devidas permissões de escrita nessa base de dados    
+4. Crie um usuário com o login 'fiap' e senha 'Fi@p_2@24' e coloque o HealthMedScheduler como banco default e de as devidas permissões de escrita nessa base de dados
 
-2- Clone este repositório
+5. Preparando a base de dados (Docker)
 
-3- No terminal vá até a pasta `/Health-Med-Scheduler` e execute o comando `dotnet restore` para restaurar as dependências do projeto
+6. Para configurar uma base de dados do SQL Server, tanto no MAC quanto PC, basta usar o tutorial nesse link : https://blog.balta.io/sql-server-docker/
 
-4- Execute o comando `dotnet run` na mesma pasta `/Health-Med-Scheduler` para executar o projeto. As tabelas serão criadas automaticamente    
-    - Acesse a documentação da API em:        
-        -  `http://localhost:5001/swagger` 
+7. Nos utilizamos o seguinte comando para rodar o container  
+```
+docker run -v ~/docker --name sqlserver -e "ACCEPT_EULA=Y" -e "MSSQL_SA_PASSWORD=P@ssw0rd" -p 1437:1433 -d mcr.microsoft.com/mssql/server
+```
+![Connection String](./documentacao/imagens/rodar_local.png)
+
+8. Clone este repositório
+
+9. No terminal vá até a pasta `/Health-Med-Scheduler` e execute o comando `dotnet restore` para restaurar as dependências do projeto
+
+10. Execute o comando `dotnet run` na mesma pasta `/Health-Med-Scheduler` para executar o projeto. As tabelas serão criadas automaticamente    
+    - Acesse a documentação da API em:  
+      - `https://localhost:7247/swagger` 
+      - `http://localhost:5159/swagger`
 
 [voltar](#índice)
 
 ## Como Executar o Projeto no Kubernetes
 
-1- Preparando a base de dados
+1. Preparando a base de dados
 
-a - Instale o SQL Server 2022 Developer na sua máquina
+2. Instale o SQL Server 2022 Developer na sua máquina
         - https://www.microsoft.com/pt-br/sql-server/sql-server-downloads        
-b - Instale o SQL Server Management Studio
+3. Instale o SQL Server Management Studio
         - https://learn.microsoft.com/en-us/sql/ssms/download-sql-server-management-studio-ssms?view=sql-server-ver16#download-ssms
 
-2- Instalando o Kubernetes
+4. Instalando o Kubernetes
 
-a- Você pode utilizar qualquer instância de Kubernetes. A aqui utilizamos o Rancher Desktop:  
+5. Você pode utilizar qualquer instância de Kubernetes. A aqui utilizamos o Rancher Desktop:  
     https://rancherdesktop.io/
 
-b- Durante a instalação utilize a opção abaixo, assim você não vai ter nenhum tipo de conflito caso tenha o Docker Desktop instalado:
+6. Durante a instalação utilize a opção abaixo, assim você não vai ter nenhum tipo de conflito caso tenha o Docker Desktop instalado:
 
 ![Rancher Desktop com Containerd](./documentacao/imagens/instalacao-rancher.png)
 
-3- Instalando o Ingress Controller
+7. Instalando o Ingress Controller
 
-a- Para acessar a aplicação no Kubernetes sem port forward você precisará de um ingress controller. Para isso instale o Helm:
+8. Para acessar a aplicação no Kubernetes sem port forward você precisará de um ingress controller. Para isso instale o Helm:
     https://helm.sh/
 
-b- Com o helm instalado adicione o repositório do NGINX no mesmo com o seguinte comando:
+9. Com o helm instalado adicione o repositório do NGINX no mesmo com o seguinte comando:
 ``` 
 helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx
 helm repo update
 helm install ingress-nginx-controller ingress-nginx/ingress-nginx
 ```
 
-3- Executando a aplicação
+10. Executando a aplicação
 
-a- Abra o arquivo (./k8s/health-med.yml)
+11. Abra o arquivo (./k8s/health-med.yml)
 
-b- Altere a linha 22 para ter o IP correto da sua máquina
+12. Altere a linha 22 para ter o IP correto da sua máquina
 
-c- Salve o arquivo e no diretorio k8s digite:
+13. Salve o arquivo e no diretorio k8s digite:
 ```
 kubectl apply -f .\health-med.yml
 ```
 
-d- Acesse a url http://health-med.127.0.0.1.nip.io/swagger
+14. Acesse a url http://health-med.127.0.0.1.nip.io/swagger
 
 
 [voltar](#índice)
