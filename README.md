@@ -61,8 +61,10 @@ Na arquitetura de software utilizamos os conceitos da Clean Architecture e o pro
 
 [voltar](#índice)
 
-## Projeto em um cluster no AKS
-O projeto está rodando em cluster no AKS no seguinte endereço
+## Pipeline do Projeto com entrega em um cluster no AKS
+
+A pipeline é executada a cada commit na branch main onde após o build a imagem é salva no Azure Container Registry e a aplicação é executada em um cluster AKS, que está conectado a um SQL Server também no Azure.
+O projeto pode ser excutado no seguinte endereço
    - http://135.237.20.236:4040/swagger/index.html
 
 [voltar](#índice)
