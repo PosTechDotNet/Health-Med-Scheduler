@@ -23,7 +23,7 @@
     
 
 ## Sobre
-Este projeto faz parte do trabalho de conclusão do Hackathon da POSTECH FIAP de Arquitetura de Sistemas .Net com Azure.
+Este projeto faz parte do trabalho de conclusão do Hackathon da POSTECH FIAP de Arquitetura de Sistemas .Net com Azure, e ganhou premio de melhor solução apresentada.
 
 [voltar](#índice)
 
